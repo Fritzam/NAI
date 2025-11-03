@@ -1,23 +1,47 @@
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+r"""
+Autorami kodu są Michał Fritza(s29235) i Wiktor Świerczyński(s27293)
+Instrukcja przygotowania:
+
+Krok 1: Sklonować repozytorium przy pomocy komendy:
+    git clone git@github.com:Fritzam/NAI.git
+
+Krok 2: Przejść do katalogu z systemem oceny i wygenerować wirtualne środowisko:
+    Komenda Linux: python3 -m venv .venv
+    Komenda Windows: python -m venv venv
+
+Krok 3: Aktywować środowisko wirtualne:
+    Komenda Linux: source .venv/bin/activate
+    Komenda windows:
+        Jeśli CMD: venv\Scripts\activate
+        Jeśli Powershell: venv\Scripts\Activate.ps1
+
+
+Krok 4: Zainstalować dependencje wykorzystując plik requirements.txt
+    Komendy dla obydwu systemów: pip install -r requirements.txt (wywołana z katalogu projektu)
+
+"""
+
+
 """
 Zmienne wejściowe w zakresie od 0 do 10. 
-Mamy trzy zmienne wejściowe czystość, komfort i cene z czego cena 10 oznacza,że jest drogo
+Mamy trzy zmienne wejściowe czystość, komfort i cene z czego cena 10 oznacza, że jest drogo.
 """
 czystosc = ctrl.Antecedent(np.arange(0, 11, 1), 'czystosc')
 komfort = ctrl.Antecedent(np.arange(0, 11, 1), 'komfort')
 cena = ctrl.Antecedent(np.arange(0, 11, 1), 'cena')
 
 """
-Zmienne wyjściowa w zakresie od 1 do 5. Symbolizuje ilość wiazdek
+Zmienne wyjściowa w zakresie od 1 do 5. Symbolizuje ilość gwiazdek.
 """
 
 gwiazdki = ctrl.Consequent(np.arange(1, 6, 0.1), 'gwiazdki')
 
 """
-Funkcje przynależności dla czystosci i komfortu jest to "niska,średnia,wysoka" 
-osobno dla ceny jest "tania,średnia,droga"
+Funkcje przynależności dla czystosci i komfortu jest to "niska, średnia, wysoka" 
+osobno dla ceny jest "tania, średnia, droga".
 """
 
 for var in [czystosc, komfort]:
@@ -36,7 +60,7 @@ gwiazdki['4'] = fuzz.trimf(gwiazdki.universe, [3, 4, 5])
 gwiazdki['5'] = fuzz.trimf(gwiazdki.universe, [4, 5, 5])
 
 """
-Reguły na podstawie jakich logika przydziela przynależność zmiennych wejściowych do zmiennej wyjściowej 
+Reguły na podstawie jakich logika przydziela przynależność zmiennych wejściowych do zmiennej wyjściowej.
 """
 
 rules = [
@@ -48,7 +72,7 @@ rules = [
 ]
 
 """
-pierwsza linijka rworzy zbiór reguł dla naszego fuzzy logic
+pierwsza linijka tworzy zbiór reguł dla naszego fuzzy logic
 druga linijka odpowiada za stworzenie symulacji dla której podajemy dane wejściowe
 """
 
@@ -56,8 +80,8 @@ system = ctrl.ControlSystem(rules)
 sim = ctrl.ControlSystemSimulation(system)
 
 """
-Do pierwszych trzech linijek podajemy dane wejśiowe dla każej zmiennej
-a następnie prowadzimy obliczenia
+Do pierwszych trzech linijek podajemy dane wejściowe dla każdej zmiennej
+a następnie prowadzimy obliczenia.
 """
 
 sim.input['czystosc'] = 8
@@ -70,5 +94,9 @@ pierwsza linijka zraca jaką ocenę gwiazdkową wyliczył system z podanych dany
 druga zwraca graf obrazujący przynależność odpowiedzi na podstawie danych
 """
 
+
+"""
+Wynik
+"""
 print(f"Ocena końcowa (gwiazdki): {sim.output['gwiazdki']:.2f}")
 gwiazdki.view(sim=sim)
