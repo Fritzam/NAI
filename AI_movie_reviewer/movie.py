@@ -5,22 +5,26 @@ import os
 load_dotenv()
 
 class Movie:
-    api_key = api_key = os.getenv("API_KEY")
-
+    def __init__(self):
+        self.api_key = os.getenv("API_KEY")
 
     def get_summary(self, movie_title: str):
-
         params = {
             "apikey": self.api_key,
             "t": movie_title
         }
 
-        url = f"http://www.omdbapi.com/"
+        url = "http://www.omdbapi.com/"
 
-        response = requests.get(url, params=params)
+        try:
+            response = requests.get(url, params=params)
+            data = response.json()
 
-        
-        data = response.json()
+            if data.get("Response") == "True":
+                return data.get("Plot", "Brak opisu.")
+            else:
+                return f"Brak opisu (błąd API: {data.get('Error')})."
 
-        return data['Plot']
+        except Exception as e:
+            return f"Brak opisu (błąd: {str(e)})."
 
