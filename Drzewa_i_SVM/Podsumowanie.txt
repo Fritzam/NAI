@@ -1,0 +1,4 @@
+Kernel liniowy tworzy podziały prostymi liniami i działa dobrze, gdy dane są ułożone w sposób możliwy do przecięcia liniowo.
+Rbf jest elastyczny i potrafi dostosować się do nieregularnych kształtów, potrafi się pofalować.
+Poly działa dobrze, ale jest wolniejszy niż RBF i może spowodować przeuczenie.
+Na zdjęciu Wheat_scv_kernel widać, że RBF poradził sobie najlepiej.

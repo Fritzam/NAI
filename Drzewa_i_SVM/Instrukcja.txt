@@ -1,0 +1,19 @@
+Autorami kodu są Michał Fritza(s29235) i Wiktor Świerczyński(s27293)
+Instrukcja przygotowania:
+
+Krok 1: Sklonować repozytorium przy pomocy komendy:
+    git clone git@github.com:Fritzam/NAI.git
+
+Krok 2: Przejść do katalogu Drzewa_i_SVM, wybrać katalog Wheat lub Fruits i wygenerować wirtualne środowisko:
+    Komenda Linux: python3 -m venv .venv
+    Komenda Windows: python -m venv venv
+
+Krok 3: Aktywować środowisko wirtualne:
+    Komenda Linux: source .venv/bin/activate
+    Komenda windows:
+        Jeśli CMD: venv\Scripts\activate
+        Jeśli Powershell: venv\Scripts\Activate.ps1
+
+
+Krok 4: Zainstalować dependencje wykorzystując plik requirements.txt
+    Komendy dla obydwu systemów: pip install -r requirements.txt (wywołana z katalogu projektu)
