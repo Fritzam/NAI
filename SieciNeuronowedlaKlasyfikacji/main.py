@@ -28,7 +28,8 @@ y = pd.get_dummies(wheat.iloc[:, -1])
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
 )
-
++
+""" Duży model sieci neuronowej (ANN) – kilka warstw ukrytych. """
 model_ANN = tf.keras.models.Sequential(
     [
         tf.keras.layers.Dense(32, activation="relu", input_shape=(7,)),
@@ -41,6 +42,7 @@ model_ANN = tf.keras.models.Sequential(
 
 model_ANN.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
+""" Mniejszy model sieci neuronowej – uproszczona architektura."""
 model_small = tf.keras.models.Sequential(
     [
         tf.keras.layers.Dense(32, activation="relu", input_shape=(7,)),
@@ -69,8 +71,8 @@ predicted_class_ANN = prediction2.argmax(axis=1)
 
 prediction3 = model_small.predict(X_test)
 predicted_class3 = prediction3.argmax(axis=1)
-""" Wyprint("Wynik celności", accuracy_score(true_class_ANN, predicted_class_ANN))
-świetlanie wbudowanych metryk na danych testowych"""
+
+""" Wyprint("Wynik celności", accuracy_score(true_class_ANN, predicted_class_ANN)), wyświetlanie wbudowanych metryk na danych testowych"""
 
 print("Tablica Pomyłek drzewa:\n", confusion_matrix(true_class, predicted_class))
 print("Wynik celności drzewa:", accuracy_score(true_class, predicted_class))
@@ -81,11 +83,14 @@ print("Tablica Pomyłek dużego modelu:\n", confusion_matrix(true_class, predict
 print("Wynik celności małego modelu:", accuracy_score(true_class, predicted_class3))
 print("Tablica Pomyłek małego modelu:\n", confusion_matrix(true_class, predicted_class3))
 
+
+""" Normalizacja danych obrazowych oraz kodowanie one-hot etykiet. """
 (X_train,y_train),(X_test,y_test) = tf.keras.datasets.cifar10.load_data()
 y_train = tf.keras.utils.to_categorical(y_train)
 y_test = tf.keras.utils.to_categorical(y_test)
 X_train, X_test = X_train/255.0, X_test/255.0
 
+""" Prosta sieć CNN do klasyfikacji obrazów CIFAR-10. """
 model_cifar = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,3)),
     tf.keras.layers.MaxPooling2D(),
@@ -95,6 +100,7 @@ model_cifar = tf.keras.Sequential([
 ])
 model_cifar.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
+""" Tworzenie modelu """
 model_cifar.fit(X_train, y_train, epochs=10, validation_split=0.2)
 
 prediction = model_cifar.predict(X_test)
@@ -109,6 +115,7 @@ X_train, X_test = X_train/255.0, X_test/255.0
 y_train = tf.keras.utils.to_categorical(y_train, 10)
 y_test  = tf.keras.utils.to_categorical(y_test, 10)
 
+""" MLP do klasyfikacji obrazów Fashion MNIST. """
 model_MNIST = tf.keras.models.Sequential(
     [
         tf.keras.layers.Flatten(input_shape=(28, 28)),
@@ -132,6 +139,8 @@ X_train, X_test = X_train/255.0, X_test/255.0
 y_train = tf.keras.utils.to_categorical(y_train, 10)
 y_test  = tf.keras.utils.to_categorical(y_test, 10)
 
+
+""" Ponowne trenowanie tego samego modelu MLP, tym razem na klasycznym zbiorze MNIST. """
 model_MNIST.fit(X_train, y_train, epochs=10, validation_split=0.2)
 
 prediction = model_MNIST.predict(X_test)
