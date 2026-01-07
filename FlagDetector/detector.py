@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 import mss
 
-
-
 ''' Biblioteka mss służy do przechwytywania ekranu.'''
 sct = mss.mss()
 full = sct.monitors[1]
@@ -23,7 +21,6 @@ def mean_bgr(img):
 ''' Funkcje sprawdzające, czy dany kolor BGR odpowiada określonemu kolorowi flagi '''
 def is_white(bgr):
     b, g, r = bgr
-    # kanały podobne + w miarę jasno
     return abs(r-g) < 25 and abs(r-b) < 25 and abs(g-b) < 25 and (r+g+b)/3 > 140
 
 def is_red(bgr):
@@ -107,10 +104,6 @@ while True:
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
 
             print(f"{flag} -> x={x}, y={y}, w={w}, h={h}")
-
-    # ---- podgląd ----
-    #cv2.imshow("Screen detector", frame)
-    #cv2.imshow("Color mask", color_mask)
 
     ''' Zakończenie pętli po naciśnięciu klawisza ESC '''
     if cv2.waitKey(1) == 27:
