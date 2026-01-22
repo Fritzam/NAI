@@ -1,0 +1,30 @@
+Członkowie grupy: Michał Fritza(s29235) i Wiktor Świerczyński(s27293)
+Instrukcja przygotowania:
+
+Krok 1: Sklonować repozytorium przy pomocy komendy:
+    git clone git@github.com:Fritzam/NAI.git
+
+Krok 2: Wygenerować wirtualne środowisko:
+    Komenda Linux: python3 -m venv .venv
+    Komenda Windows: python -m venv venv
+
+Krok 3: Aktywować środowisko wirtualne:
+    Komenda Linux: source .venv/bin/activate
+    Komenda windows:
+        Jeśli CMD: venv\Scripts\activate
+        Jeśli Powershell: venv\Scripts\Activate.ps1
+
+Krok 4: Zainstaluj dependencje:
+    W katalogu głównym projektu(NAI) wykonaj:
+        pip install -r requirements_assault.txt
+
+Krok 5: Przejdź do katalogu Assault:
+    cd Assault/
+
+Krok 6: Wytrenuj model:
+    python train_vec_dqn.py / albo python3 jeśli na linuxie.
+
+Krok 7: Czekaj aż model się wytrenuje(chwilę zajmie, ale w przypadku problemów ctrl+c zawsze jest opcją -- nam się nie przydarzyły.)
+
+Krok 8: Po wygenerowaniu się pliku shooten_dqn_vec.zip uruchom grę:
+    python play_vec.py
